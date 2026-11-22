@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Oller Team | Intracoastal Realty</title>
+<style>
+  :root { --navy:#1b3556; --ink:#0d0d0d; --cream:#f1ece4; --line:#d9d2c6; --err:#b3261e; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:var(--ink); color:var(--cream);
+    font-family:"Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif; -webkit-text-size-adjust:100%; }
+  .hero { height:34vh; min-height:190px; max-height:340px; background:#243b55 center/cover no-repeat;
+    position:relative; }
+  .hero::after { content:""; position:absolute; inset:0;
+    background:linear-gradient(to bottom, rgba(13,13,13,0) 55%, rgba(13,13,13,1) 100%); }
+  main { max-width:520px; margin:0 auto; padding:4px 22px 40px; }
+  .eyebrow { letter-spacing:.22em; text-transform:uppercase; font-size:12px; opacity:.75; margin:0 0 10px; }
+  h1 { font-weight:400; font-size:30px; line-height:1.15; margin:0 0 10px; letter-spacing:.01em; }
+  .sub { font-size:16px; line-height:1.5; opacity:.9; margin:0 0 22px; }
+  .facts { font-size:14px; letter-spacing:.06em; opacity:.75; margin:-2px 0 18px; }
+  form { background:var(--cream); color:var(--ink); border-radius:14px; padding:20px 18px 18px; }
+  label { display:block; font-size:13px; font-weight:600; margin:14px 0 6px; }
+  label:first-of-type { margin-top:0; }
+  .opt { font-weight:400; opacity:.6; }
+  input[type=text], input[type=email], input[type=tel] { width:100%; font-size:17px; padding:12px;
+    border:1px solid var(--line); border-radius:9px; background:#fff; color:var(--ink); }
+  input:focus { outline:2px solid var(--navy); outline-offset:1px; }
+  .row { display:flex; gap:10px; } .row > div { flex:1; min-width:0; }
+  .chips { display:flex; gap:8px; flex-wrap:wrap; }
+  .chips label { margin:0; font-weight:500; font-size:15px; }
+  .chips input { position:absolute; opacity:0; pointer-events:none; }
+  .chips span { display:block; padding:10px 15px; border:1px solid var(--line); border-radius:999px;
+    background:#fff; cursor:pointer; }
+  .chips input:checked + span { background:var(--navy); border-color:var(--navy); color:#fff; }
+  .chips input:focus-visible + span { outline:2px solid var(--navy); outline-offset:2px; }
+  button { width:100%; margin-top:20px; padding:15px; font-size:17px; font-weight:600; border:0;
+    border-radius:10px; background:var(--navy); color:#fff; cursor:pointer; letter-spacing:.02em; }
+  button[disabled] { opacity:.6; }
+  button.link { background:none; color:var(--cream); font-weight:400; font-size:14px;
+    text-decoration:underline; margin-top:12px; padding:8px; }
+  .fine { font-size:12.5px; line-height:1.45; opacity:.7; margin:14px 0 0; }
+  .msg { color:var(--err); font-size:14px; margin:12px 0 0; min-height:1em; }
+  .card { background:var(--cream); color:var(--ink); border-radius:14px; padding:24px 20px; }
+  .card h2 { font-weight:500; font-size:22px; margin:0 0 8px; }
+  .card p { margin:0 0 6px; line-height:1.5; }
+  .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  footer { max-width:520px; margin:0 auto; padding:0 22px 34px; font-size:13px; line-height:1.6; opacity:.75; }
+  footer a { color:inherit; }
+  .test { background:#7a5b00; color:#fff; font-size:12px; text-align:center; padding:6px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<div id="testbar" class="test" hidden>Test mode: nothing is being sent.</div>
+<div id="hero" class="hero"></div>
+<main>
+  <p id="eyebrow" class="eyebrow">The Oller Team</p>
+  <h1 id="headline">One moment…</h1>
+  <p id="facts" class="facts" hidden></p>
+  <p id="sub" class="sub"></p>
+
+  <!-- First visit: the short form -->
+  <form id="form" hidden novalidate>
+    <div class="row">
+      <div><label for="firstName">First name</label>
+        <input id="firstName" name="firstName" type="text" autocomplete="given-name" required></div>
+      <div><label for="lastName">Last name</label>
+        <input id="lastName" name="lastName" type="text" autocomplete="family-name" required></div>
+    </div>
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+    <label for="phone">Mobile phone <span class="opt">(optional)</span></label>
+    <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+
+    <label id="typeLabel">I am a…</label>
+    <div class="chips" role="radiogroup" aria-labelledby="typeLabel">
+      <label><input type="radio" name="visitorType" value="Buyer"><span>Buyer</span></label>
+      <label><input type="radio" name="visitorType" value="Neighbor"><span>Neighbor</span></label>
+      <label><input type="radio" name="visitorType" value="Agent"><span>Agent</span></label>
+      <label><input type="radio" name="visitorType" value="Just looking"><span>Just looking</span></label>
+    </div>
+
+    <div id="agentBlock">
+      <label id="agentLabel">Are you working with a real estate agent?</label>
+      <div class="chips" role="radiogroup" aria-labelledby="agentLabel">
+        <label><input type="radio" name="hasAgent" value="Yes"><span>Yes</span></label>
+        <label><input type="radio" name="hasAgent" value="No"><span>No</span></label>
+      </div>
+    </div>
+
+    <div class="hp" aria-hidden="true"><label>Leave this empty
+      <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <button id="send" type="submit">Email it to me</button>
+    <p id="msg" class="msg" role="alert"></p>
+    <p class="fine">David Oller of The Oller Team at Intracoastal Realty will email what you asked for
+      and may follow up. Your information is not shared with anyone else, and you can ask us to stop
+      at any time.</p>
+  </form>
+
+  <!-- Return visit on the same phone: one tap -->
+  <div id="again" hidden>
+    <div class="card">
+      <h2 id="againHello"></h2>
+      <p id="againText"></p>
+      <button id="againSend" type="button" style="margin-top:16px">Email it to me</button>
+      <p id="againMsg" class="msg" role="alert"></p>
+    </div>
+    <button id="notMe" class="link" type="button">Not you? Use a different name and email</button>
+  </div>
+
+  <!-- After sending -->
+  <div id="done" class="card" hidden>
+    <h2>On its way.</h2>
+    <p id="doneText"></p>
+    <p style="margin-top:12px">Enjoy the rest of the home. If a question comes up while you are here,
+      just ask.</p>
+  </div>
+</main>
+<footer>
+  <strong>David Oller</strong> · The Oller Team · Intracoastal Realty<br>
+  <a href="tel:2039125578">(203) 912-5578</a> (call or text) ·
+  <a href="https://OllerTeam.IntracoastalRealty.com">OllerTeam.IntracoastalRealty.com</a>
+</footer>
+
+<script>
+(async function () {
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const q = new URLSearchParams(location.search);
+  const clean = v => (v || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 40);
+  const kit = clean(q.get("k")), sign = clean(q.get("s")) || "entry", direct = clean(q.get("p"));
+  const today = (() => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    return d.toISOString().slice(0, 10); })();
+
+  const load = async f => { try { const r = await fetch(f + "?v=" + Date.now(), {cache: "no-store"});
+    return r.ok ? await r.json() : {}; } catch (e) { return {}; } };
+  const [config, listings, kits] = await Promise.all(
+    [load("config.json"), load("listings.json"), load("kits.json")]);
+
+  // Which house is this sign at today?
+  let code = direct;
+  if (!code && kit && Array.isArray(kits[kit])) {
+    const hit = kits[kit].find(a => (!a.from || a.from <= today) && (!a.to || today <= a.to));
+    if (hit) code = clean(hit.listing);
+  }
+  const home = listings[code] || null;
+  if (!home) code = "general";
+
+  // What this sign offers. The exit sign offers the same thing as the entry sign.
+  const general = { key: "contact", headline: "Let’s find your next home.",
+    sub: "Leave your name and email and David Oller will be in touch.", button: "Send",
+    sent: "Thank you. David will be in touch shortly." };
+  const offers = home ? (home.offers || {}) : {};
+  const offer = home ? (offers[sign] || offers.entry) : general;
+
+  if (home) {
+    if (home.photo) $("hero").style.backgroundImage = "url('" + home.photo + "')";
+    $("eyebrow").textContent = home.address + (home.city ? " · " + home.city : "");
+    if (home.facts) { $("facts").textContent = home.facts; $("facts").hidden = false; }
+  }
+  $("headline").textContent = offer.headline;
+  $("sub").textContent = offer.sub;
+  $("send").textContent = $("againSend").textContent = offer.button || "Email it to me";
+
+  const testing = !config.webhook;
+  $("testbar").hidden = !testing;
+  const post = async data => {
+    const body = Object.assign({ listing: code, address: home ? home.address : "", kit: kit, sign: sign,
+      offer: offer.key, openHouseDate: today, page: location.origin + location.pathname }, data);
+    if (testing) { console.log("TEST MODE would send", body); window.__lastSent = body; return true; }
+    try { const r = await fetch(config.webhook, { method: "POST",
+      headers: {"Content-Type": "application/json"}, body: JSON.stringify(body), keepalive: true });
+      return r.ok; } catch (e) { return false; }
+  };
+
+  // Count the scan once per page load, whether or not they sign in.
+  post({ event: "scan" });
+
+  const KEY = "ollerVisitor";
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
+
+  const finish = who => {
+    try { localStorage.setItem(KEY, JSON.stringify(who)); } catch (e) {}
+    $("form").hidden = true; $("again").hidden = true;
+    $("doneText").textContent = offer.sent ||
+      ("Check " + who.email + " in a minute or so. If it is not there, look in your junk folder.");
+    $("done").hidden = false; $("done").scrollIntoView({behavior: "smooth", block: "center"});
+  };
+  const send = async (who, button, msgEl) => {
+    button.disabled = true; msgEl.textContent = "";
+    const ok = await post(Object.assign({ event: "signin" }, who));
+    button.disabled = false;
+    if (ok) finish(who);
+    else msgEl.textContent = "That did not go through. Please check your connection and try again, " +
+      "or let David know and he will send it to you.";
+  };
+
+  const showForm = () => { $("again").hidden = true; $("form").hidden = false; };
+  if (saved && saved.email) {
+    $("againHello").textContent = "Welcome back, " + saved.firstName + ".";
+    $("againText").textContent = "We will send this to " + saved.email + ".";
+    $("again").hidden = false;
+    $("againSend").onclick = () => send(saved, $("againSend"), $("againMsg"));
+    $("notMe").onclick = showForm;
+  } else showForm();
+
+  // An agent is not asked whether they have an agent.
+  $("form").addEventListener("change", () => {
+    const t = $("form").visitorType.value;
+    $("agentBlock").hidden = (t === "Agent");
+  });
+
+  $("form").addEventListener("submit", e => {
+    e.preventDefault();
+    const f = e.target, v = n => f[n].value.trim();
+    if (v("website")) { finish({ firstName: "", email: "" }); return; }   // a robot filled the hidden box
+    const who = { firstName: v("firstName"), lastName: v("lastName"), email: v("email"), phone: v("phone"),
+      visitorType: f.visitorType.value || "", hasAgent: f.visitorType.value === "Agent" ? "Is an agent"
+        : (f.hasAgent.value || "") };
+    if (!who.firstName || !who.lastName) { $("msg").textContent = "Please add your first and last name."; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(who.email)) {
+      $("msg").textContent = "Please check your email address."; return; }
+    send(who, $("send"), $("msg"));
+  });
+})();
+</script>
+</body>
+</html>

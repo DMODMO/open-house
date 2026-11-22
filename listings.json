@@ -1,0 +1,20 @@
+{
+  "sample-home": {
+    "address": "123 Sample Street",
+    "city": "Wilmington, NC",
+    "facts": "3 BED · 2 BATH · 1,850 SQ FT · $475,000",
+    "photo": "",
+    "offers": {
+      "entry": {
+        "key": "package",
+        "headline": "Get the complete property package.",
+        "sub": "Photos, floor plan, disclosures, and pricing details, delivered to your email in about a minute."
+      },
+      "kitchen": {
+        "key": "features",
+        "headline": "Home features and upgrades.",
+        "sub": "The full list of improvements, appliances, and special details, sent to your email."
+      }
+    }
+  }
+}
