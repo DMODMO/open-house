@@ -39,6 +39,7 @@
   button[disabled] { opacity:.6; }
   button.link { background:none; color:var(--cream); font-weight:400; font-size:14px;
     text-decoration:underline; margin-top:12px; padding:8px; }
+  .hint { font-size:12.5px; line-height:1.4; opacity:.65; margin:6px 0 0; }
   .fine { font-size:12.5px; line-height:1.45; opacity:.7; margin:14px 0 0; }
   .msg { color:var(--err); font-size:14px; margin:12px 0 0; min-height:1em; }
   .card { background:var(--cream); color:var(--ink); border-radius:14px; padding:24px 20px; }
@@ -87,12 +88,17 @@
         <label><input type="radio" name="hasAgent" value="Yes"><span>Yes</span></label>
         <label><input type="radio" name="hasAgent" value="No"><span>No</span></label>
       </div>
+      <div id="agentNameBlock" hidden>
+        <label for="agentName">Your agent’s name <span class="opt">(optional)</span></label>
+        <input id="agentName" name="agentName" type="text" autocomplete="off">
+        <p class="hint">So David can let them know you stopped by. Not working with one? Tap No above.</p>
+      </div>
     </div>
 
     <div class="hp" aria-hidden="true"><label>Leave this empty
       <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 
-    <button id="send" type="submit">Email it to me</button>
+    <button id="send" type="submit">Send me the information!</button>
     <p id="msg" class="msg" role="alert"></p>
     <p class="fine">David Oller of The Oller Team at Intracoastal Realty will email what you asked for
       and may follow up. Your information is not shared with anyone else, and you can ask us to stop
@@ -104,7 +110,7 @@
     <div class="card">
       <h2 id="againHello"></h2>
       <p id="againText"></p>
-      <button id="againSend" type="button" style="margin-top:16px">Email it to me</button>
+      <button id="againSend" type="button" style="margin-top:16px">Send me the information!</button>
       <p id="againMsg" class="msg" role="alert"></p>
     </div>
     <button id="notMe" class="link" type="button">Not you? Use a different name and email</button>
@@ -162,7 +168,7 @@
   }
   $("headline").textContent = offer.headline;
   $("sub").textContent = offer.sub;
-  $("send").textContent = $("againSend").textContent = offer.button || "Email it to me";
+  $("send").textContent = $("againSend").textContent = offer.button || "Send me the information!";
 
   const testing = !config.webhook;
   $("testbar").hidden = !testing;
@@ -211,6 +217,10 @@
   $("form").addEventListener("change", () => {
     const t = $("form").visitorType.value;
     $("agentBlock").hidden = (t === "Agent");
+    // Yes opens a line for the agent's name. No, or choosing Agent, closes and empties it.
+    const yes = t !== "Agent" && $("form").hasAgent.value === "Yes";
+    $("agentNameBlock").hidden = !yes;
+    if (!yes) $("agentName").value = "";
   });
 
   $("form").addEventListener("submit", e => {
@@ -219,7 +229,8 @@
     if (v("website")) { finish({ firstName: "", email: "" }); return; }   // a robot filled the hidden box
     const who = { firstName: v("firstName"), lastName: v("lastName"), email: v("email"), phone: v("phone"),
       visitorType: f.visitorType.value || "", hasAgent: f.visitorType.value === "Agent" ? "Is an agent"
-        : (f.hasAgent.value || "") };
+        : (f.hasAgent.value === "Yes" && v("agentName") ? "Yes: " + v("agentName")
+        : (f.hasAgent.value || "")) };
     if (!who.firstName || !who.lastName) { $("msg").textContent = "Please add your first and last name."; return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(who.email)) {
       $("msg").textContent = "Please check your email address."; return; }
