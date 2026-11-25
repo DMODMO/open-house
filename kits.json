@@ -1,6 +1,9 @@
 {
   "a": [
-    { "listing": "sample-home", "from": "2026-11-22", "to": "2026-12-31" }
+    {
+      "listing": "1104-trisail-ter",
+      "from": "2026-11-25"
+    }
   ],
   "b": []
 }

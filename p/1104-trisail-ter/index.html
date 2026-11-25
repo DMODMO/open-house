@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>1104 Trisail Terrace | Home Snapshot</title>
+<style>
+  @font-face { font-family:"Roboto Condensed"; src:url("fonts/RobotoCondensed.ttf"); font-weight:100 900; }
+  @font-face { font-family:"Roboto"; src:url("fonts/Roboto.ttf"); font-weight:100 900; }
+  @font-face { font-family:"Open Sans"; src:url("fonts/OpenSans.ttf"); font-weight:300 800; }
+  @page { size:8.5in 11in; margin:0; }
+  :root { --navy:#1f3a5f; --ink:#0d0d0d; --cream:#f1ece4; --line:#cfc7ba; --gold:#e9af10; --muted:#5d6470; }
+  * { box-sizing:border-box; }
+  html { font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { margin:0; font-family:"Open Sans",sans-serif; line-height:1.5; color:#1a1a1a; background:var(--ink); }
+  h1,h2,h3 { margin:0; }
+  p { margin:0 0 0.5em; }
+  .sheet { background:var(--cream); margin:0 auto; max-width:8.5in; position:relative; }
+
+  /* Page 1: the house */
+  .one { background:var(--ink); color:var(--cream); }
+  .hero { background:url("photos/front.jpg") center 40%/cover; aspect-ratio:3/2; position:relative; }
+  .hero::after { content:""; position:absolute; inset:0;
+    background:linear-gradient(to bottom, rgba(13,13,13,0) 60%, rgba(13,13,13,1) 100%); }
+  .pad { padding:0 0.75in; }
+  .kicker { font-family:"Roboto",sans-serif; letter-spacing:.28em; text-transform:uppercase; font-size:0.85em; opacity:.8; }
+  .one h1 { font-family:"Roboto Condensed",sans-serif; font-weight:700; font-size:3em; line-height:1.1; margin:0.25em 0; }
+  .gold { width:3em; height:3pt; background:var(--gold); margin:0.75em 0 1em; }
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:0.5em; margin:1em 0 1.5em; }
+  .stats div { border:0.75pt solid rgba(241,236,228,.35); padding:0.75em 0.5em; text-align:center; }
+  .stats b { display:block; font-family:"Roboto Condensed",sans-serif; font-size:1.75em; line-height:1.15; }
+  .stats span { font-size:0.85em; opacity:.8; }
+  .one p { font-size:1em; }
+  .brand { display:flex; justify-content:space-between; align-items:center; padding:1.5em 0.75in; }
+  .brand img { height:0.7in; display:block; }
+  .marks { display:flex; align-items:center; gap:1.5em; }
+  /* On the dark page the Intracoastal logo is the white-lettered one, with its wave line and tagline. */
+  .brand img.irc { height:0.62in; }
+  .two .marks { justify-content:center; gap:1.5em; margin-top:1em; }
+  .two .marks img { height:0.55in; display:block; }
+  .brand .who { font-size:0.85em; line-height:1.5; opacity:.85; }
+
+  /* Page 2: what the listing sites leave out */
+  .two { padding:0.75in; }
+  .two > h2 { font-family:"Roboto Condensed",sans-serif; font-weight:700; font-size:1.75em; line-height:1.15; color:var(--navy);
+              padding-bottom:0.5em; border-bottom:1.5pt solid var(--navy); margin-bottom:1em; }
+  .cards { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75em; }
+  .card { background:#fff; border:0.75pt solid var(--line); padding:1em; }
+  .card h3 { font-family:"Roboto",sans-serif; font-weight:500; font-size:1.25em; line-height:1.25; color:var(--navy); margin-bottom:0.5em; }
+  .card p, .card li { font-size:0.9em; line-height:1.45; }
+  .card ul { margin:0; padding-left:1.25em; }
+  .card li { margin:0.25em 0; }
+  .big { font-family:"Roboto Condensed",sans-serif; font-weight:700; font-size:1.75em; line-height:1.15; color:var(--navy); }
+  .cmp { width:100%; border-collapse:collapse; margin:0.25em 0 0.5em; font-size:0.9em; }
+  .cmp td { padding:0.25em 0; border-bottom:0.75pt solid var(--line); }
+  .cmp td:last-child { text-align:right; font-weight:600; white-space:nowrap; }
+  .cmp tr.us td { color:var(--navy); font-weight:700; }
+  .note { font-size:0.85em; color:var(--muted); }
+  .strip { display:grid; grid-template-columns:repeat(3,1fr); gap:0.5em; margin:1em 0; }
+  .strip div { aspect-ratio:3/2; background:center/cover; border:0.75pt solid var(--line); }
+  .more { background:var(--navy); color:#fff; padding:1em 1.5em; }
+  .more h3 { font-family:"Roboto",sans-serif; font-weight:500; font-size:1.25em; margin-bottom:0.25em; }
+  .more p { margin:0.25em 0 0; font-size:0.95em; }
+  .foot { margin-top:1em; padding-top:0.5em; border-top:0.75pt solid var(--line); color:var(--muted);
+          font-size:0.85rem; text-align:center; }
+
+  @media print {
+    body { background:none; }
+    .sheet { width:8.5in; height:11in; max-width:none; overflow:hidden; break-after:page; display:flex; flex-direction:column; }
+    .sheet:last-child { break-after:auto; }
+    .hero { aspect-ratio:auto; height:5.3in; }
+    .one .pad { flex:1; }
+    .two .marks { margin-top:auto; }
+  }
+  @media screen and (max-width:700px) {
+    html { font-size:12pt; }
+    .pad, .brand { padding-left:1.25em; padding-right:1.25em; }
+    .two { padding:1.5em 1.25em; }
+    .one h1 { font-size:2.25em; }
+    .stats { grid-template-columns:1fr 1fr; }
+    .cards { grid-template-columns:1fr; }
+    .strip { grid-template-columns:1fr; }
+    .brand { flex-direction:column; gap:1em; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<section class="sheet one">
+  <div class="hero"></div>
+  <div class="pad">
+    <div class="kicker">Riverlights · Wilmington, NC</div>
+    <h1>1104 Trisail Terrace</h1>
+    <div class="gold"></div>
+    <div class="stats">
+      <div><b>$569,000</b><span>List price</span></div>
+      <div><b>3 + Flex</b><span>Bedrooms</span></div>
+      <div><b>2.5</b><span>Bathrooms</span></div>
+      <div><b>2,313</b><span>Square feet</span></div>
+    </div>
+    <p>Built in 2024 and kept like a model home. The first floor is open and bright: living room, dining area, and a kitchen with a 9-foot granite island and gas cooking, with French doors to the patio and yard. The owner’s suite is on the first floor, off its own hallway.</p>
+    <p>Upstairs are two more bedrooms, a full bath, a family room, and a flex room for an office or guests. Two-car garage at the rear, and a rocking-chair front porch.</p>
+  </div>
+  <div class="brand">
+    <div class="who"><strong>David Oller</strong> · The Oller Team<br>Intracoastal Realty Corporation<br>(203) 912-5578, call or text<br>davidoller@intracoastalrealty.com</div>
+    <div class="marks">
+      <img src="img/oller-white.svg" alt="The Oller Team Real Estate">
+      <img class="irc" src="img/irc-experience-dark-bg.svg" alt="Intracoastal Realty Corporation">
+    </div>
+  </div>
+</section>
+
+<section class="sheet two">
+  <h2>What the Listing Sites Don’t Tell You</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>How the Price Compares</h3>
+      <div class="big">$246 per sq ft</div>
+      <p>This home’s asking price, against Riverlights homes of similar size and price (2,200 to 2,800 sq ft, $400,000 to $700,000) that have sold since late June:</p>
+      <table class="cmp">
+        <tr><td>Resales, median</td><td>$245 / sq ft</td></tr>
+        <tr><td>New construction, median</td><td>$256 / sq ft</td></tr>
+        <tr class="us"><td>1104 Trisail</td><td>$246 / sq ft</td></tr>
+      </table>
+      <p class="note">MLS closed sales, as of November 25, 2026.</p>
+    </div>
+    <div class="card">
+      <h3>It Lives Larger Than Three Bedrooms</h3>
+      <p>Some sites list this home with four bedrooms and some with three. Here is what is actually upstairs:</p>
+      <ul>
+        <li>Two bedrooms and a full bath with double sinks</li>
+        <li>A flex room that works as an office or a fourth bedroom</li>
+        <li>A second family room</li>
+      </ul>
+      <p style="margin-top:0.5em">The owner’s suite, laundry and powder room are all on the first floor.</p>
+    </div>
+    <div class="card">
+      <h3>What the Owners Added</h3>
+      <p>Chosen when the home was built, and easy to miss on a walk-through:</p>
+      <ul>
+        <li>Gas range vented to the outside</li>
+        <li>Frameless shower with 3/8-inch glass</li>
+        <li>Solid oak stair treads</li>
+        <li>Blinds on every window</li>
+        <li>Whole-house gutters</li>
+        <li>Pre-wired for ceiling fans and Wi-Fi</li>
+      </ul>
+    </div>
+  </div>
+  <div class="strip">
+    <div style="background-image:url('photos/living.jpg')"></div>
+    <div style="background-image:url('photos/kitchen2.jpg')"></div>
+    <div style="background-image:url('photos/bed.jpg')"></div>
+  </div>
+  <div class="more">
+    <h3>More as You Tour</h3>
+    <p><strong>In the kitchen:</strong> scan the card for the full list of features and upgrades, room by room.</p>
+    <p><strong>Want the floor plans, the recent sales, or a second look?</strong> Reply to the email this came with, or text me at (203) 912-5578.</p>
+  </div>
+  <div class="marks">
+    <img src="img/oller-dark.svg" alt="The Oller Team Real Estate">
+    <img src="img/irc-experience-white-bg.svg" alt="Intracoastal Realty Corporation">
+  </div>
+  <div class="foot">David Oller | The Oller Team | Intracoastal Realty Corporation | (203) 912-5578 | davidoller@intracoastalrealty.com<br>
+    Information is from the MLS and the builder’s selections and is believed accurate but not guaranteed. List price as of November 25, 2026.</div>
+</section>
+</body>
+</html>

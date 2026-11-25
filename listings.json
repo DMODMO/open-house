@@ -16,5 +16,23 @@
         "sub": "The full list of improvements, appliances, and special details, sent to your email."
       }
     }
+  },
+  "1104-trisail-ter": {
+    "address": "1104 Trisail Terrace",
+    "city": "Riverlights · Wilmington, NC",
+    "facts": "3 BED + FLEX · 2.5 BATH · 2,313 SQ FT · $569,000",
+    "photo": "p/1104-trisail-ter/photos/front.jpg",
+    "offers": {
+      "entry": {
+        "key": "package",
+        "headline": "Get the Home Snapshot.",
+        "sub": "Two pages on this home, including what the listing sites don’t tell you, in your email in about a minute."
+      },
+      "kitchen": {
+        "key": "features",
+        "headline": "Home features and upgrades.",
+        "sub": "The full list of what the owners chose when the home was built, room by room, sent to your email."
+      }
+    }
   }
 }
