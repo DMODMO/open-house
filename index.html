@@ -111,6 +111,11 @@
     <div class="card">
       <h2 id="againHello"></h2>
       <p id="againText"></p>
+      <div id="againPhoneBlock" hidden style="margin-top:16px">
+        <label for="againPhone">Mobile phone <span class="opt">(optional)</span></label>
+        <input id="againPhone" type="tel" autocomplete="tel" inputmode="tel">
+        <p class="hint">In case we need to reach you quickly about this home.</p>
+      </div>
       <button id="againSend" type="button" style="margin-top:16px">Send me the information!</button>
       <p id="againMsg" class="msg" role="alert"></p>
     </div>
@@ -210,7 +215,10 @@
     $("againHello").textContent = "Welcome back, " + saved.firstName + ".";
     $("againText").textContent = "We will send this to " + saved.email + ".";
     $("again").hidden = false;
-    $("againSend").onclick = () => send(saved, $("againSend"), $("againMsg"));
+    // No phone number the first time: ask once more, still optional.
+    $("againPhoneBlock").hidden = !!saved.phone;
+    $("againSend").onclick = () => send(Object.assign({}, saved,
+      { phone: saved.phone || $("againPhone").value.trim() }), $("againSend"), $("againMsg"));
     $("notMe").onclick = showForm;
   } else showForm();
 
