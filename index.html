@@ -45,11 +45,15 @@
   .card { background:var(--cream); color:var(--ink); border-radius:14px; padding:24px 20px; }
   .card h2 { font-weight:500; font-size:22px; margin:0 0 8px; }
   .card p { margin:0 0 6px; line-height:1.5; }
+  .card a { color:var(--navy); }
+  .tap { font-weight:600; margin-top:14px !important; }
   .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
   footer { max-width:520px; margin:0 auto; padding:0 22px 34px; font-size:13px; line-height:1.6; opacity:.75; }
   footer a { color:inherit; }
+  footer { text-align:center; }
+  .firm { white-space:nowrap; }   /* a firm's name is never split over two lines */
   .test { background:#7a5b00; color:#fff; font-size:12px; text-align:center; padding:6px; }
-  .marks { max-width:520px; margin:0 auto; padding:0 22px 16px; display:flex; align-items:center; gap:22px; }
+  .marks { max-width:520px; margin:0 auto; padding:0 22px 16px; display:flex; align-items:center; justify-content:center; gap:22px; }
   .marks img { height:46px; width:auto; display:block; }
   [hidden] { display:none !important; }
 </style>
@@ -103,7 +107,7 @@
 
     <button id="send" type="submit">Send me the information!</button>
     <p id="msg" class="msg" role="alert"></p>
-    <p class="fine">David Oller of The Oller Team at Intracoastal Realty Corporation will email what you asked for
+    <p class="fine">David Oller of The Oller Team at <span class="firm">Intracoastal Realty Corporation</span> will email what you asked for
       and may follow up. Your information is not shared with anyone else, and you can ask us to stop
       at any time.</p>
   </form>
@@ -118,7 +122,8 @@
         <input id="againPhone" type="tel" autocomplete="tel" inputmode="tel">
         <p class="hint">In case we need to reach you quickly about this home.</p>
       </div>
-      <button id="againSend" type="button" style="margin-top:16px">Send me the information!</button>
+      <p id="againTap" class="tap">Tap the button and it is on its way.</p>
+      <button id="againSend" type="button" style="margin-top:10px">Send me the information!</button>
       <p id="againMsg" class="msg" role="alert"></p>
     </div>
     <button id="notMe" class="link" type="button">Not you? Use a different name and email</button>
@@ -128,6 +133,7 @@
   <div id="done" class="card" hidden>
     <h2>On its way.</h2>
     <p id="doneText"></p>
+    <p id="doneAgain" hidden style="margin-top:12px"><a id="doneAgainLink" href="#">Did not get it? Send it again.</a></p>
     <p style="margin-top:12px">Enjoy the rest of the home. If a question comes up while you are here,
       just ask.</p>
   </div>
@@ -137,7 +143,8 @@
   <img src="img/irc-experience-dark-bg.png" alt="Intracoastal Realty Corporation, Experience the Exceptional">
 </div>
 <footer>
-  <strong>David Oller</strong> · The Oller Team · Intracoastal Realty Corporation<br>
+  <strong>David Oller</strong> · The Oller Team<br>
+  <span class="firm">Intracoastal Realty Corporation</span><br>
   <a href="tel:2039125578">(203) 912-5578</a> (call or text) ·
   <a href="https://OllerTeam.IntracoastalRealty.com">OllerTeam.IntracoastalRealty.com</a>
 </footer>
@@ -193,15 +200,31 @@
       return r.ok; } catch (e) { return false; }
   };
 
-  // Count the scan once per page load, whether or not they sign in.
-  post({ event: "scan" });
-
-  const KEY = "ollerVisitor";
+  const KEY = "ollerVisitor", SENT = "ollerSent";
   let saved = null;
   try { saved = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
 
+  // Once this sign has sent its document today, the page is a thank-you page, and stays one
+  // through a refresh, so nobody is asked to send the same thing twice.
+  const sentKey = [code, sign, today].join("|");
+  let sentList = [];
+  try { sentList = JSON.parse(localStorage.getItem(SENT) || "[]"); } catch (e) {}
+  const already = !!(saved && saved.email && sentList.indexOf(sentKey) >= 0);
+  const thanks = who => {
+    $("headline").textContent = "Thank you" + (who.firstName ? ", " + who.firstName : "") + ".";
+    $("sub").textContent = offer.thanks || "";
+    $("sub").hidden = !offer.thanks;
+  };
+
+  // Count the scan once per page load, whether or not they sign in. A refresh of the
+  // thank-you page is not a new scan.
+  if (!already) post({ event: "scan" });
+
   const finish = who => {
-    try { localStorage.setItem(KEY, JSON.stringify(who)); } catch (e) {}
+    try { localStorage.setItem(KEY, JSON.stringify(who));
+      if (who.email && sentList.indexOf(sentKey) < 0) sentList.push(sentKey);
+      localStorage.setItem(SENT, JSON.stringify(sentList.slice(-30))); } catch (e) {}
+    thanks(who);
     $("form").hidden = true; $("again").hidden = true;
     $("doneText").textContent = offer.sent ||
       ("Check " + who.email + " in a minute or so. If it is not there, look in your junk folder.");
@@ -217,9 +240,19 @@
   };
 
   const showForm = () => { $("again").hidden = true; $("form").hidden = false; };
-  if (saved && saved.email) {
+  if (already) {
+    thanks(saved);
+    $("doneText").textContent = offer.sent ||
+      ("We sent it to " + saved.email + ". If it is not there, look in your junk folder.");
+    $("doneAgain").hidden = false;
+    $("doneAgainLink").onclick = e => { e.preventDefault();
+      try { localStorage.setItem(SENT, JSON.stringify(sentList.filter(k => k !== sentKey))); } catch (x) {}
+      location.reload(); };
+    $("done").hidden = false;
+  } else if (saved && saved.email) {
     $("againHello").textContent = "Welcome back, " + saved.firstName + ".";
-    $("againText").textContent = "We will send this to " + saved.email + ".";
+    $("againText").textContent = "You are already signed in, so there is nothing to fill out. " +
+      "We will send this to " + saved.email + ".";
     $("again").hidden = false;
     // No phone number the first time: ask once more, still optional.
     $("againPhoneBlock").hidden = !!saved.phone;
