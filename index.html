@@ -219,8 +219,9 @@
   };
 
   // Count the scan once per page load, whether or not they sign in. A refresh of the
-  // thank-you page is not a new scan.
-  if (!already) post({ event: "scan" });
+  // thank-you page is not a new scan. A visit with no sign code (the bare page address, which
+  // is what search engines and link checkers open) did not come from a sign and is not counted.
+  if (!already && (kit || direct)) post({ event: "scan" });
 
   const finish = who => {
     try { localStorage.setItem(KEY, JSON.stringify(who));
