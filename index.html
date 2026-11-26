@@ -258,7 +258,7 @@
     // No phone number the first time: ask once more, still optional.
     $("againPhoneBlock").hidden = !!saved.phone;
     $("againSend").onclick = () => send(Object.assign({}, saved,
-      { phone: saved.phone || $("againPhone").value.trim() }), $("againSend"), $("againMsg"));
+      { phone: tidyPhone(saved.phone || $("againPhone").value) }), $("againSend"), $("againMsg"));
     $("notMe").onclick = showForm;
   } else showForm();
 
@@ -272,11 +272,18 @@
     if (!yes) $("agentName").value = "";
   });
 
+  // A US number is stored one way, (203) 912-5578, however it was typed, so the lead list and
+  // the contact card read the same. Anything else (too short, a foreign number) is kept as typed.
+  function tidyPhone(p) {
+    const d = (p || "").replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "");
+    return d.length === 10 ? "(" + d.slice(0,3) + ") " + d.slice(3,6) + "-" + d.slice(6) : (p || "").trim();
+  }
+
   $("form").addEventListener("submit", e => {
     e.preventDefault();
     const f = e.target, v = n => f[n].value.trim();
     if (v("website")) { finish({ firstName: "", email: "" }); return; }   // a robot filled the hidden box
-    const who = { firstName: v("firstName"), lastName: v("lastName"), email: v("email"), phone: v("phone"),
+    const who = { firstName: v("firstName"), lastName: v("lastName"), email: v("email"), phone: tidyPhone(v("phone")),
       visitorType: f.visitorType.value || "", hasAgent: f.visitorType.value === "Agent" ? "Is an agent"
         : (f.hasAgent.value === "Yes" && v("agentName") ? "Yes: " + v("agentName")
         : (f.hasAgent.value || "")) };
