@@ -32,6 +32,11 @@
         "key": "features",
         "headline": "Home features and upgrades.",
         "sub": "The full list of builder upgrades that come with the house, room by room, sent to your email."
+      },
+      "bedroom": {
+        "key": "floorplan",
+        "headline": "Take the floor plan with you.",
+        "sub": "Both floors on one page, so you can remember the layout after the tour, sent to your email."
       }
     }
   }
